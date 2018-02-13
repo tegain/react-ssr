@@ -15,11 +15,11 @@ app.get('/', (req, res) => {
 	const html = `
 		<!doctype html>
 		<html>
-				<head></head>
-				<body>
-					<div>${content}</div>
-					<script src="bundle.js"></script>
-				</body>
+			<head></head>
+			<body>
+				<div id="root">${content}</div>
+				<script src="bundle.js"></script>
+			</body>
 		</html>
 	`;
 

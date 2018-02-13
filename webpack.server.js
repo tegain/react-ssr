@@ -26,11 +26,9 @@ module.exports = {
 						'react',
 						['env', { targets: { browsers: ['last 2 versions'] } }]
 					],
-					plugind: ['transform-object-rest-spread']
+					plugins: ['transform-object-rest-spread']
 				}
 			}
 		]
 	}
 };
-
-module.exports = merge(baseConfig, config);

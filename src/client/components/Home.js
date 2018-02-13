@@ -5,4 +5,6 @@ const Home = () => (
     <div>I'm the Home component.</div>
     <button onClick={() => console.log('Clicked')}>Click me</button>
   </div>
-)
+);
+
+export default Home;
