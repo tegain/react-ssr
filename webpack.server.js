@@ -1,6 +1,7 @@
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const merge = require('webpack-merge');
+const webpackNodeExternals = require('webpack-node-externals');
 const baseConfig = require('./webpack.base');
 
 const config = {
@@ -22,7 +23,11 @@ const config = {
 			analyzerPort: 27012,
 			openAnalyzer: false
 		})
-	]
+	],
+
+	// Tell Webpack to not bundle any library that exists inside the node_modules folder.
+	// Because we can require node libraries at runtime when the server starts up
+	externals: [webpackNodeExternals()]
 };
 
 
