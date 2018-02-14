@@ -7,5 +7,13 @@ scripts: {
 }
 ```
 
-#### Same modular syntax (between require() and ES6 import)
+##### Same modular syntax (between require() and ES6 import)
 We can, because we run babel on the server side too.
+
+##### Run multiple NPM scripts in parallel
+
+Run all scripts starting by "dev:*" in parallel
+
+```json
+"dev": "npm-run-all --parallel dev:*"
+```

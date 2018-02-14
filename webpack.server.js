@@ -1,6 +1,9 @@
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const merge = require('webpack-merge');
+const baseConfig = require('./webpack.base');
 
-module.exports = {
+const config = {
 	// Inform Webpack that we're building a bundle
 	// for NodeJS, rather than for the browser
 	target: 'node',
@@ -14,21 +17,14 @@ module.exports = {
 		path: path.resolve(__dirname, 'build')
 	},
 
-	// Tell webpack to run babel on every file it runs through
-	module: {
-		rules: [
-			{
-				test: /\.jsx?$/,
-				loader: 'babel-loader',
-				exclude: /node_modules/,
-				options: {
-					presets: [
-						'react',
-						['env', { targets: { browsers: ['last 2 versions'] } }]
-					],
-					plugins: ['transform-object-rest-spread']
-				}
-			}
-		]
-	}
+	plugins: [
+		new BundleAnalyzerPlugin({
+			analyzerPort: 27012,
+			openAnalyzer: false
+		})
+	]
 };
+
+
+
+module.exports = merge(baseConfig, config);

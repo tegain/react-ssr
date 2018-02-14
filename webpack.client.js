@@ -1,6 +1,9 @@
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const merge = require('webpack-merge');
+const baseConfig = require('./webpack.base');
 
-module.exports = {
+const config = {
 
 	// Tell Webpack the root file of our server app
 	entry: './src/client/client.js',
@@ -11,21 +14,12 @@ module.exports = {
 		path: path.resolve(__dirname, 'public')
 	},
 
-	// Tell webpack to run babel on every file it runs through
-	module: {
-		rules: [
-			{
-				test: /\.jsx?$/,
-				loader: 'babel-loader',
-				exclude: /node_modules/,
-				options: {
-					presets: [
-						'react',
-						['env', { targets: { browsers: ['last 2 versions'] } }]
-					],
-					plugins: ['transform-object-rest-spread']
-				}
-			}
-		]
-	}
+	plugins: [
+		new BundleAnalyzerPlugin({
+			analyzerPort: 27013,
+			openAnalyzer: false
+		})
+	]
 };
+
+module.exports = merge(baseConfig, config);
