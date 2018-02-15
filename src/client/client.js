@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
 import Routes from './router/Routes';
+
+const store = createStore(reducers, {}, applyMiddleware(thunk));
 
 /**
  * Re-render the app on the #root div created in the
@@ -19,9 +24,11 @@ import Routes from './router/Routes';
  * @doc https://reactjs.org/docs/react-dom.html#hydrate
  */
 ReactDOM.hydrate(
-	// Render the Router container
-	<BrowserRouter>
-		<Routes />
-	</BrowserRouter>
+	// Render the Router container inside of redux Provider
+	<Provider store={store}>
+		<BrowserRouter>
+			<Routes />
+		</BrowserRouter>
+	</Provider>
 	, document.querySelector('#root')
 );

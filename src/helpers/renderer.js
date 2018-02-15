@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import Routes from '../client/router/Routes';
 
@@ -8,15 +9,17 @@ import Routes from '../client/router/Routes';
  * Render React component to string and return it to express route.
  * @returns {string}
  */
-export default (req) => {
+export default (req, store) => {
 	const content = renderToString(
 		/**
 		 * `context` Used to make some redirects or display error messages
 		 * @doc https://reacttraining.com/react-router/web/api/StaticRouter/context-object
 		 */
-		<StaticRouter location={req.path} context={{}}>
-			<Routes />
-		</StaticRouter>
+		<Provider store={store}>
+			<StaticRouter location={req.path} context={{}}>
+				<Routes />
+			</StaticRouter>
+		</Provider>
 	);
 
 	return `
