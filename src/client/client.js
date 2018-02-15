@@ -1,3 +1,4 @@
+import 'babel-polyfill'; // Avoid `regeneratorRuntime is not defined`
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -6,6 +7,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import Routes from './router/Routes';
+import reducers from './reducers';
 
 const store = createStore(reducers, {}, applyMiddleware(thunk));
 

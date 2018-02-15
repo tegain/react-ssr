@@ -1,3 +1,4 @@
+import 'babel-polyfill'; // Avoid `regeneratorRuntime is not defined`
 import express from 'express';
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
