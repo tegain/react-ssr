@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import Home from './components/Home';
+import Routes from './router/Routes';
 
 /**
  * Re-render the app on the #root div created in the
@@ -17,4 +18,10 @@ import Home from './components/Home';
  *
  * @doc https://reactjs.org/docs/react-dom.html#hydrate
  */
-ReactDOM.hydrate(<Home/>, document.querySelector('#root'));
+ReactDOM.hydrate(
+	// Render the Router container
+	<BrowserRouter>
+		<Routes />
+	</BrowserRouter>
+	, document.querySelector('#root')
+);

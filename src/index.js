@@ -1,8 +1,5 @@
 import express from 'express';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-
-import Home from './client/components/Home';
+import renderer from './helpers/renderer';
 
 const app = express();
 
@@ -10,20 +7,9 @@ const app = express();
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-	const content = renderToString(<Home/>);
-
-	const html = `
-		<!doctype html>
-		<html>
-			<head></head>
-			<body>
-				<div id="root">${content}</div>
-				<script src="bundle.js"></script>
-			</body>
-		</html>
-	`;
-
-	res.send(html);
+	// Send the stringified html with react component
+	// Pass the request param to the renderer function to get the request url
+	res.send(renderer(req));
 });
 
 app.listen(3000, () => {
