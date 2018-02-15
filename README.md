@@ -17,3 +17,6 @@ Run all scripts starting by "dev:*" in parallel
 ```json
 "dev": "npm-run-all --parallel dev:*"
 ```
+
+##### API
+http://react-ssr-api.herokuapp.com/
