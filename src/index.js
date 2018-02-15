@@ -13,7 +13,7 @@ app.get('*', (req, res) => {
 	// Create redux store before actually rendering the component,
 	// in order to add some logic to this store
 	const store = createStore();
-	
+
 	// Send the stringified html with react component
 	// Pass the request param and the redux store to the renderer function to get the request url
 	res.send(renderer(req, store));
