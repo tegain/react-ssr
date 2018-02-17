@@ -1,5 +1,8 @@
 import 'babel-polyfill'; // Avoid `regeneratorRuntime is not defined`
 import express from 'express';
+import { matchRoutes } from 'react-router-config';
+
+import Routes from './client/router/Routes';
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
 
@@ -15,9 +18,15 @@ app.get('*', (req, res) => {
 	// in order to add some logic to this store
 	const store = createStore();
 
-	// Send the stringified html with react component
-	// Pass the request param and the redux store to the renderer function to get the request url
-	res.send(renderer(req, store));
+	const promises = matchRoutes(Routes, req.path).map(({ route }) => {
+		return route.loadData ? route.loadData(store) : null;
+	});
+
+	Promise.all(promises).then(() => {
+		// Send the stringified html with react component
+		// Pass the request param and the redux store to the renderer function to get the request url
+		res.send(renderer(req, store));
+	});
 });
 
 app.listen(3000, () => {
