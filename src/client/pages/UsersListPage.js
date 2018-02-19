@@ -46,4 +46,7 @@ export const loadData = (store) => {
  *
  * @doc https://github.com/reactjs/react-redux/blob/master/docs/api.md
  */
-export default connect(mapStateToProps, { fetchUsers })(UsersList);
+export default {
+	loadData,
+	component: connect(mapStateToProps, { fetchUsers })(UsersList)
+};
