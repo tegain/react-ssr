@@ -10,7 +10,7 @@ import { renderRoutes } from 'react-router-config';
 import Routes from './router/Routes';
 import reducers from './reducers';
 
-const store = createStore(reducers, {}, applyMiddleware(thunk));
+const store = createStore(reducers, window.INITIAL_STATE, applyMiddleware(thunk));
 
 /**
  * Re-render the app on the #root div created in the

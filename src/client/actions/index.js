@@ -11,7 +11,7 @@ export const FETCH_USERS = 'FETCH_USERS';
  */
 export const fetchUsers = () => {
 	return async (dispatch) => {
-		const res = await axios.get('http://react-ssr-api.herokuapp.com/users');
+		const res = await axios.get('http://react-ssr-api.herokuapp.com/users/xss');
 
 		dispatch({
 			type: FETCH_USERS,
