@@ -11,14 +11,14 @@ import Routes from '../client/router/Routes';
  * Render React component to string and return it to express route.
  * @returns {string}
  */
-export default (req, store) => {
+export default (req, store, context) => {
 	const content = renderToString(
 		/**
 		 * `context` Used to make some redirects or display error messages
 		 * @doc https://reacttraining.com/react-router/web/api/StaticRouter/context-object
 		 */
 		<Provider store={store}>
-			<StaticRouter location={req.path} context={{}}>
+			<StaticRouter location={req.path} context={context}>
 				{/**
 					 * renderRoutes takes an array of routes objects and render them as react routes
 					 */}

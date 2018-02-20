@@ -37,9 +37,21 @@ app.get('*', (req, res) => {
 	});
 
 	Promise.all(promises).then(() => {
-		// Send the stringified html with react component
-		// Pass the request param and the redux store to the renderer function to get the request url
-		res.send(renderer(req, store));
+		const context = {};
+		const content = renderer(req, store, context);
+
+		/**
+		 * Send the stringified html with react component
+		 * Pass the request param and the redux store to the renderer function to get the request url
+		 *
+		 * if `context` contains the `notFound` property defined in NotFoundPage component,
+		 * return a 404 status.
+ 		 */
+		if (context.notFound) {
+			res.status(404);
+		}
+
+		res.send(content);
 	});
 });
 

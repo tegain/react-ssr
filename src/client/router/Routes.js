@@ -2,6 +2,7 @@ import React from 'react';
 import App from '../App';
 import HomePage from '../pages/HomePage';
 import UsersListPage from '../pages/UsersListPage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 /**
  * Need to define routes as an array of routes objects (with a App root component)
@@ -23,6 +24,9 @@ export default [
 			{
 				...UsersListPage,
 				path: '/users'
+			},
+			{
+				...NotFoundPage
 			}
 		]
 	}
