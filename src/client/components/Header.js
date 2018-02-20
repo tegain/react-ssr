@@ -12,15 +12,17 @@ const Header = (props) => {
 	console.log('Auth:', props.auth);
 
 	return (
-		<div>
-			<Link to="/">React SSR</Link>
+		<nav>
+			<div className="nav-wrapper">
+				<Link to="/" className="brand-logo left">React SSR</Link>
 
-			<div>
-				<Link to="/users">Users</Link>
-				<Link to="/admins">Admins</Link>
-				{authButton}
+				<ul className="right">
+					<li><Link to="/users">Users</Link></li>
+					<li><Link to="/admins">Admins</Link></li>
+					<li>{authButton}</li>
+				</ul>
 			</div>
-		</div>
+		</nav>
 	)
 };
 
