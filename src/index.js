@@ -36,23 +36,26 @@ app.get('*', (req, res) => {
 		return route.loadData ? route.loadData(store) : null;
 	});
 
-	Promise.all(promises).then(() => {
-		const context = {};
-		const content = renderer(req, store, context);
+	Promise.all(promises)
+		.then(() => {
+			const context = {};
+			const content = renderer(req, store, context);
 
-		/**
-		 * Send the stringified html with react component
-		 * Pass the request param and the redux store to the renderer function to get the request url
-		 *
-		 * if `context` contains the `notFound` property defined in NotFoundPage component,
-		 * return a 404 status.
- 		 */
-		if (context.notFound) {
-			res.status(404);
-		}
+			/**
+			 * Send the stringified html with react component
+			 * Pass the request param and the redux store to the renderer function to get the request url
+			 *
+			 * if `context` contains the `notFound` property defined in NotFoundPage component,
+			 * return a 404 status.
+			 */
+			if (context.notFound) {
+				res.status(404);
+			}
 
-		res.send(content);
-	});
+			res.send(content);
+		})
+		// .catch(/* also render the app */); // Even if there is a problem, render the app. Not recommended though.
+		// .catch((err) => res.send(err.response.data.error)); // Not recommended: it's like throwing up all the SSR with this generic message
 });
 
 app.listen(3000, () => {

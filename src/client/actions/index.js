@@ -32,6 +32,19 @@ export const fetchCurrentUser = () => {
 		dispatch({
 			type: FETCH_CURRENT_USER,
 			payload: res
-		})
+		});
+	}
+};
+
+export const FETCH_ADMINS = 'FETCH_ADMINS';
+
+export const fetchAdmins = () => {
+	return async (dispatch, getState, api) => {
+		const res = await api.get('/admins');
+
+		dispatch({
+			type: FETCH_ADMINS,
+			payload: res
+		});
 	}
 };
