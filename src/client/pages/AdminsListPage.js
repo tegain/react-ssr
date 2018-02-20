@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAdmins } from '../actions';
+import RequireAuth from '../components/hocs/requireAuth';
 
 class AdminsListPage extends Component {
 	componentDidMount () {
@@ -28,6 +29,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default {
-	component: connect(mapStateToProps, { fetchAdmins })(AdminsListPage),
+	component: connect(mapStateToProps, { fetchAdmins })(RequireAuth(AdminsListPage)), // Wrap AdminsListPage with RequireAuth HOC
 	loadData: (store) => store.dispatch(fetchAdmins())
 };

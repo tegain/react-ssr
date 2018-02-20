@@ -34,6 +34,17 @@ app.get('*', (req, res) => {
 
 	const promises = matchRoutes(Routes, req.path).map(({ route }) => {
 		return route.loadData ? route.loadData(store) : null;
+	}).map((promise) => {
+		/**
+		 * Force resolving all promises even if there is an error in one of them,
+		 * thus making the `Promise.all()` always go into the `then()` statement.
+		 * We can then manually set error messages while rendering the app.
+		 */
+		if (promise) {
+			return new Promise((resolve, reject) => {
+				promise.then(resolve).catch(resolve);
+			});
+		}
 	});
 
 	Promise.all(promises)
@@ -51,9 +62,12 @@ app.get('*', (req, res) => {
 			if (context.notFound) {
 				res.status(404);
 			}
+			if (context.url) {
+				return res.redirect(302, context.url); // 302 instead of 301, to prevent browser to cache the redirect (then redirecting everytime, even when logged in...)
+			}
 
 			res.send(content);
-		})
+		});
 		// .catch(/* also render the app */); // Even if there is a problem, render the app. Not recommended though.
 		// .catch((err) => res.send(err.response.data.error)); // Not recommended: it's like throwing up all the SSR with this generic message
 });
