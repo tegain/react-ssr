@@ -35,3 +35,15 @@ Instead, we use `React Router config`:
 - for each route, we call the `route.loadData()`, passing the Redux store as parameter
 - this `loadData` function will then dispatch an action to the redux store (and feed it) which will return a promise
 - inside of the Express server file, we can now wait until this promise is resolved, and send the rendered component (with data from store) to the browser
+
+
+### Authentication ###
+
+In order to use cookies for authentication, we need to trick the app to be on the same domain (cookies are domain dependant).
+
+- To do that, we create 2 separates *axios instances* (https://github.com/axios/axios#creating-an-instance) (one for client, one for server)
+- We use the `extraArgument` function provided by Redux Thunk (https://github.com/gaearon/redux-thunk/blob/master/src/index.js) to tweak the middleware, by adding the previous axios instance
+- the extra argument will be passed as a 3rd argument in the action creator
+- In the action creator, we can now replace the regular `axios.get()` function with the new 3rd argument (the axios instance)
+- Repeat for server store
+

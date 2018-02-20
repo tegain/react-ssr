@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const FETCH_USERS = 'FETCH_USERS';
 
 /**
@@ -10,8 +8,13 @@ export const FETCH_USERS = 'FETCH_USERS';
  * @returns {function(*)}
  */
 export const fetchUsers = () => {
-	return async (dispatch) => {
-		const res = await axios.get('http://react-ssr-api.herokuapp.com/users');
+	/**
+	 * Use the `api` function argument (from thunk middleware) to make requests,
+	 * which will automatically prepend the '/api' to the url
+	 * (and the Express server proxy middleware will catch it and redirect to the correct api url)
+	 */
+	return async (dispatch, getState, api) => {
+		const res = await api.get('/users');
 
 		dispatch({
 			type: FETCH_USERS,
